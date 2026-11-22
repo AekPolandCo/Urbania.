@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f7f2" />
+    <title>Urbania — a little city, all yours</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Urbania home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 36 36" fill="none">
+              <path d="M5 30V17l7-5v18M12 30V8l8-5v27M20 30V15l10-6v21" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M8 20h1m6-7h1m0 5h1m7 1h1m4-6h1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="brand-name">urbania<span class="brand-period">.</span></span>
+        </a>
+        <div class="city-title">
+          <span class="eyebrow">YOUR LITTLE CORNER OF THE WORLD</span>
+          <h1>Maplewood <span class="edit-name" title="Rename your town" aria-label="Rename your town">✎</span></h1>
+        </div>
+        <div class="topbar-right">
+          <div class="season"><span class="sun-icon" id="weather-icon" aria-hidden="true">☀</span> <span id="phase-label">Sunny</span><span class="season-divider"></span><span id="day-label">Day 1</span></div>
+          <button class="icon-button" id="theme-button" title="Switch to dark mode" aria-label="Switch to dark mode">☾</button>
+          <button class="icon-button" id="sound-button" title="Toggle sound" aria-label="Toggle sound">♫</button>
+        </div>
+      </header>
+
+      <section class="stats-bar" aria-label="Town statistics">
+        <div class="stat-card money-card">
+          <span class="stat-icon coin-icon" aria-hidden="true">$</span>
+          <div><span class="stat-label">CITY FUNDS</span><strong id="money-value">$1,200</strong></div>
+          <span class="stat-change positive" id="income-value">+$0 / day</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon people-icon" aria-hidden="true">♟</span>
+          <div><span class="stat-label">POPULATION</span><strong id="population-value">12</strong></div>
+          <span class="stat-note" id="homes-value">3 homes</span>
+        </div>
+        <div class="stat-card happiness-card">
+          <span class="stat-icon heart-icon" aria-hidden="true">♥</span>
+          <div><span class="stat-label">HAPPINESS</span><strong id="happiness-value">82%</strong></div>
+          <div class="happiness-track"><span id="happiness-meter"></span></div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon land-icon" aria-hidden="true">▦</span>
+          <div><span class="stat-label">LAND USED</span><strong id="land-value">7%</strong></div>
+          <span class="stat-note" id="tiles-value">32 / 480 tiles</span>
+        </div>
+        <div class="stat-card research-card">
+          <span class="stat-icon research-icon" aria-hidden="true">⚗</span>
+          <div><span class="stat-label">RESEARCH</span><strong id="research-value">0 RP</strong></div>
+          <span class="stat-note" id="research-level">Tier 1</span>
+        </div>
+      </section>
+
+      <section class="game-layout">
+        <aside class="build-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">MAKE IT YOURS</span>
+              <h2>Build</h2>
+            </div>
+            <span class="build-sparkle" aria-hidden="true">✳</span>
+          </div>
+          <p class="panel-hint">Pick something to build, then click an empty tile.</p>
+
+          <div class="build-categories" role="group" aria-label="Filter buildings by category">
+            <button class="build-category active" data-category="homes" aria-pressed="true">Homes</button>
+            <button class="build-category" data-category="roads" aria-pressed="false">Roads</button>
+            <button class="build-category" data-category="parks" aria-pressed="false">Parks</button>
+            <button class="build-category" data-category="food" aria-pressed="false">Food</button>
+            <button class="build-category" data-category="shops" aria-pressed="false">Shops</button>
+            <button class="build-category" data-category="community" aria-pressed="false">Community</button>
+          </div>
+          <label class="catalog-search">
+            <span aria-hidden="true">⌕</span>
+            <input id="catalog-search" type="search" placeholder="Search 200+ buildings" autocomplete="off" />
+          </label>
+          <div class="build-options" role="group" aria-label="Choose what to build">
+            <button class="build-option selected" data-tool="select" aria-pressed="true">
+              <span class="option-art cursor-art" aria-hidden="true"><span>↖</span></span>
+              <span class="option-copy"><strong>Inspect</strong><small>Look around</small></span>
+              <span class="shortcut">Q</span>
+            </button>
+            <button class="build-option" data-tool="home" data-category="homes" aria-pressed="false">
+              <span class="option-art home-art" aria-hidden="true"><span class="mini-house">⌂</span></span>
+              <span class="option-copy"><strong>Cozy home</strong><small>+4 neighbors</small></span>
+              <span class="option-cost">$80</span>
+            </button>
+            <button class="build-option" data-tool="apartment" data-category="homes" aria-pressed="false">
+              <span class="option-art apartment-art" aria-hidden="true"><span>▥</span></span>
+              <span class="option-copy"><strong>Apartment</strong><small>+8 neighbors</small></span>
+              <span class="option-cost">$240</span>
+            </button>
+            <button class="build-option" data-tool="road" data-category="roads" aria-pressed="false">
+              <span class="option-art road-art" aria-hidden="true"><span class="mini-road">┄</span></span>
+              <span class="option-copy"><strong>Road</strong><small>Connect your town</small></span>
+              <span class="option-cost">$20</span>
+            </button>
+            <button class="build-option" data-tool="park" data-category="parks" aria-pressed="false">
+              <span class="option-art park-art" aria-hidden="true"><span class="mini-tree">♣</span></span>
+              <span class="option-copy"><strong>Little park</strong><small>Happier neighbors</small></span>
+              <span class="option-cost">$100</span>
+            </button>
+            <button class="build-option" data-tool="garden" data-category="parks" aria-pressed="false">
+              <span class="option-art garden-art" aria-hidden="true"><span>✿</span></span>
+              <span class="option-copy"><strong>Flower garden</strong><small>Happier neighbors</small></span>
+              <span class="option-cost">$150</span>
+            </button>
+            <button class="build-option" data-tool="cafe" data-category="food" aria-pressed="false">
+              <span class="option-art cafe-art" aria-hidden="true"><span class="mini-cafe">☕</span></span>
+              <span class="option-copy"><strong>Sunny café</strong><small>Earns $18 / day</small></span>
+              <span class="option-cost">$180</span>
+            </button>
+            <button class="build-option" data-tool="restaurant" data-category="food" aria-pressed="false">
+              <span class="option-art restaurant-art" aria-hidden="true"><span>♨</span></span>
+              <span class="option-copy"><strong>Restaurant</strong><small>Earns $24 / day</small></span>
+              <span class="option-cost">$240</span>
+            </button>
+            <button class="build-option" data-tool="bakery" data-category="food" aria-pressed="false">
+              <span class="option-art bakery-art" aria-hidden="true"><span>♧</span></span>
+              <span class="option-copy"><strong>Neighborhood bakery</strong><small>Earns $20 / day</small></span>
+              <span class="option-cost">$210</span>
+            </button>
+            <button class="build-option" data-tool="shop" data-category="shops" aria-pressed="false">
+              <span class="option-art shop-art" aria-hidden="true"><span class="mini-shop">▤</span></span>
+              <span class="option-copy"><strong>Corner shop</strong><small>Earns $12 / day</small></span>
+              <span class="option-cost">$140</span>
+            </button>
+            <button class="build-option" data-tool="market" data-category="shops" aria-pressed="false">
+              <span class="option-art market-art" aria-hidden="true"><span>▧</span></span>
+              <span class="option-copy"><strong>Town market</strong><small>Earns $16 / day</small></span>
+              <span class="option-cost">$190</span>
+            </button>
+            <button class="build-option" data-tool="florist" data-category="shops" aria-pressed="false">
+              <span class="option-art florist-art" aria-hidden="true"><span>❀</span></span>
+              <span class="option-copy"><strong>Flower shop</strong><small>Earns $14 / day</small></span>
+              <span class="option-cost">$160</span>
+            </button>
+            <button class="build-option" data-tool="center" data-category="community" aria-pressed="false">
+              <span class="option-art center-art" aria-hidden="true"><span class="mini-center">★</span></span>
+              <span class="option-copy"><strong>Community center</strong><small>Boosts happiness</small></span>
+              <span class="option-cost">$220</span>
+            </button>
+            <button class="build-option" data-tool="library" data-category="community" aria-pressed="false">
+              <span class="option-art library-art" aria-hidden="true"><span>▤</span></span>
+              <span class="option-copy"><strong>Little library</strong><small>Happier neighbors</small></span>
+              <span class="option-cost">$200</span>
+            </button>
+            <button class="build-option" data-tool="school" data-category="community" aria-pressed="false">
+              <span class="option-art school-art" aria-hidden="true"><span>⌂</span></span>
+              <span class="option-copy"><strong>Neighborhood school</strong><small>Happier neighbors</small></span>
+              <span class="option-cost">$260</span>
+            </button>
+            <button class="build-option" data-tool="clinic" data-category="community" aria-pressed="false">
+              <span class="option-art clinic-art" aria-hidden="true"><span>✚</span></span>
+              <span class="option-copy"><strong>Community clinic</strong><small>Happier neighbors</small></span>
+              <span class="option-cost">$280</span>
+            </button>
+          </div>
+
+          <div class="panel-divider"></div>
+          <button class="demolish-button" id="demolish-button" aria-pressed="false">
+            <span class="demolish-icon" aria-hidden="true">⌫</span>
+            <span><strong>Clear a tile</strong><small>Remove something</small></span>
+            <span class="shortcut">X</span>
+          </button>
+          <div class="build-tip"><span aria-hidden="true">✦</span> Tip: connect homes with roads to help your town grow.</div>
+        </aside>
+
+        <section class="map-section" aria-label="City map">
+          <div class="map-toolbar">
+            <div class="map-location"><span class="location-dot"></span><span>MAPLEWOOD</span><span class="map-coordinates" id="coordinates">—</span></div>
+            <div class="map-actions">
+              <span class="map-zoom-label">100%</span>
+              <button class="map-icon-button" id="zoom-out" title="Zoom out" aria-label="Zoom out">−</button>
+              <button class="map-icon-button" id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button>
+              <button class="map-icon-button fullscreen-button" id="reset-view" title="Reset view" aria-label="Reset view">⤢</button>
+            </div>
+          </div>
+          <div class="map-frame">
+            <canvas id="city-canvas" aria-label="Map of Maplewood. Select a building then click to place it."></canvas>
+            <div class="toast" id="toast" role="status" aria-live="polite"></div>
+            <div class="map-legend"><span><i class="legend-dot home-dot"></i> Homes</span><span><i class="legend-dot shop-dot"></i> Shops</span><span><i class="legend-dot park-dot"></i> Parks</span><span><i class="legend-dot cafe-dot"></i> Food</span><span><i class="legend-dot center-dot"></i> Community</span></div>
+          </div>
+          <div class="map-footer">
+            <span><kbd>1</kbd>–<kbd>0</kbd> quick build <span class="footer-divider">·</span> <kbd>Esc</kbd> inspect</span>
+            <span class="autosave"><span class="save-dot"></span> All changes saved</span>
+          </div>
+        </section>
+
+        <aside class="town-panel">
+          <section class="town-card mayor-card">
+            <div class="mayor-heading"><span class="mayor-avatar" aria-hidden="true">👩🏻‍🌾</span><div><span class="eyebrow">A NOTE FROM YOUR MAYOR</span><h2>Looking good!</h2></div></div>
+            <p id="mayor-message">Your first little neighborhood is already taking shape. Let’s give those homes a road to call their own!</p>
+            <button class="text-button" id="mayor-tip">What should I do next? <span>→</span></button>
+          </section>
+
+          <section class="town-card activity-card">
+            <div class="section-title"><h2>Town diary</h2><span class="live-label"><i></i> LIVE</span></div>
+            <div class="diary-list" id="diary-list">
+              <div class="diary-entry"><span class="diary-icon diary-sun">☀</span><div><p>A fresh new day in Maplewood!</p><small>Just now</small></div></div>
+              <div class="diary-entry"><span class="diary-icon diary-home">⌂</span><div><p>12 lovely neighbors call this home.</p><small>A little while ago</small></div></div>
+              <div class="diary-entry"><span class="diary-icon diary-flower">✿</span><div><p>There’s room for something wonderful.</p><small>Earlier today</small></div></div>
+            </div>
+          </section>
+
+          <section class="town-card goal-card">
+            <div class="goal-top"><span class="goal-icon" aria-hidden="true">✧</span><div><span class="eyebrow">LITTLE GOAL</span><h2>Make room to grow</h2></div></div>
+            <p>Build 5 cozy homes</p>
+            <div class="goal-progress"><span id="goal-meter"></span></div>
+            <div class="goal-meta"><span id="goal-count">3 of 5 homes</span><span>Reward <b>$150</b></span></div>
+          </section>
+
+          <section class="town-card research-card-panel">
+            <div class="section-title"><h2>Research lab</h2><span class="live-label"><i></i> NEW</span></div>
+            <p class="research-summary" id="research-summary">Plan your next city breakthrough.</p>
+            <div class="research-list" id="research-list"></div>
+          </section>
+
+          <div class="time-controls">
+            <span class="time-label">TOWN TIME</span>
+            <button class="time-button" id="pause-button" aria-label="Pause time">Ⅱ</button>
+            <button class="speed-button active" data-speed="1" aria-pressed="true">1×</button>
+            <button class="speed-button" data-speed="2" aria-pressed="false">2×</button>
+          </div>
+        </aside>
+      </section>
+      <footer class="page-footer"><span>Made with a little sunshine <span class="footer-heart">♥</span></span><span>URBANIA <span class="footer-period">·</span> YOUR CITY, YOUR STORY</span></footer>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
